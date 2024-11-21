@@ -1,0 +1,390 @@
+/* Reset de base pour un style cohérent */
+body, h1, h2, h3, h4, h5, h6, p, ul, li, nav, footer {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    background-color: #f5f5f5; /* Beige léger */
+    color: #333; /* Gris foncé */
+    line-height: 1.6;
+}
+
+
+
+/**************/
+/* Navigation */
+/**************/
+nav.container {
+    background-color: #1f1f1f; /* Noir profond */
+    color: #fff; /* Texte blanc */
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin-right: 15px;
+}
+
+nav ul li.logo img {
+    height: 40px;
+}
+
+nav ul li.items a {
+    text-decoration: none;
+    color: #fff; /* Texte blanc */
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li.items a:hover {
+    background-color: #4caf50; /* Vert moderne */
+    color: #fff;
+}
+
+nav ul li.language-menu .language-form {
+    margin: 0;
+}
+
+nav ul li.language-menu .language-selector {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff; /* Fond blanc */
+    color: #333; /* Texte gris foncé */
+    font-size: 14px;
+    cursor: pointer;
+}
+
+nav ul li.language-menu .language-selector:hover {
+    background-color: #ddd; /* Gris clair */
+}
+
+
+
+/*********************/
+/* Contenu principal */
+/*********************/
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #fff; /* Fond blanc */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+main h1 {
+    font-size: 2.5em;
+    color: #4caf50; /* Vert moderne */
+    margin-bottom: 20px;
+}
+
+main p {
+    font-size: 1.2em;
+    color: #666; /* Gris moyen */
+}
+
+main p a {
+    color: #4caf50; /* Vert moderne */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+main p a:hover {
+    text-decoration: underline;
+}
+
+/* Container principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Empiler verticalement */
+    align-items: center;
+    gap: 20px;
+}
+
+/* Section de bienvenue */
+.welcome-section {
+    width: 100%; /* Pleine largeur pour une meilleure lisibilité */
+    max-width: 800px; /* Limite la largeur totale pour un texte centré */
+    background-color: #fff;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Centrer le texte */
+}
+
+.welcome-section h1 {
+    color: #5cb85c; /* Vert pour le titre */
+}
+
+.register-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.register-button:hover {
+    background-color: #4cae4c;
+}
+
+/* Section d'attention */
+.attention-section {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.attention-section h1 {
+    color: #d9534f; /* Rouge pour attirer l'attention */
+}
+
+/* Section des images */
+.image-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.image-box {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/**********/
+/* Footer */
+/**********/
+footer {
+    background-color: #1f1f1f; /* Noir profond */
+    color: #fff; /* Texte blanc */
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 40px;
+}
+
+/* Footer global */
+footer.footer {
+    background-color: #1f1f1f; /* Noir profond */
+    color: #fff; /* Texte blanc */
+    text-align: center;
+    padding: 20px 0;
+    border-top: 3px solid #4caf50; /* Ligne de séparation verte */
+}
+
+/* Style pour le texte copyright */
+footer.footer p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #bbb; /* Gris clair */
+}
+
+footer.footer p a {
+    text-decoration: none;
+    color: #4caf50; /* Vert moderne */
+    transition: color 0.3s ease;
+}
+
+footer.footer p a:hover {
+    color: #4caf50; /* Passe au blanc au survol */
+}
+
+/* Conteneur pour les icônes de médias sociaux */
+footer.footer .social-media {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacement entre les icônes */
+}
+
+footer.footer .social-media a {
+    display: inline-block;
+    width: 24px; /* Garantit la largeur de chaque lien */
+    height: 24px; /* Garantit la hauteur de chaque lien */
+    overflow: hidden; /* Coupe tout débordement éventuel */
+    transition: transform 0.3s ease;
+}
+
+footer.footer .social-media a:hover {
+    transform: scale(1.2); /* Agrandit légèrement au survol */
+}
+
+footer.footer .social-media img {
+    width: 100%; /* Adaptation à la taille du conteneur parent */
+    height: 100%; /* Adaptation à la taille du conteneur parent */
+    object-fit: contain; /* Maintient les proportions de l'image */
+    filter: grayscale(100%); /* Rendu en niveaux de gris */
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+footer.footer .social-media img:hover {
+    filter: grayscale(0); /* Passe en couleur au survol */
+    opacity: 0.8; /* Légère transparence au survol */
+}
+
+
+/*****************/
+/* Game Versions */
+/*****************/
+/* Style général pour le tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: #4caf50; /* Vert moderne */
+    color: #fff;
+}
+
+thead th {
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+
+tbody tr {
+	text-align: left;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.version-row {
+    cursor: pointer;
+}
+
+.modifications-row {
+    background-color: #f5f5f5; /* Gris clair */
+}
+
+.modifications-row ul {
+    margin: 10px 0;
+    padding-left: 20px;
+    list-style: disc;
+    color: #666;
+    font-size: 14px;
+}
+
+
+/*****************/
+/*** Register ****/
+/*****************/
+.register {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.register h1 {
+    text-align: center;
+    color: #4caf50;
+}
+
+.register form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register label {
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.register input[type="text"],
+.register input[type="email"],
+.register input[type="password"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.register input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.register button {
+    padding: 10px 15px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.register button:hover {
+    background-color: #347e37;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav ul li {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    nav ul li.items {
+        text-align: center;
+    }
+
+    main {
+        padding: 15px;
+        margin: 20px auto;
+    }
+}
