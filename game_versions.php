@@ -56,9 +56,9 @@ $versions = [
             '00004: Design for development.',
             '00003: Language detection system and default setting in English.',
             '00002: Design of the index page with menu and separate footer.',
-            '00001: Project start-up.'
+            '00001: Project start-up 2024-11-18.'
         ],
-        'release_date' => '2024-11-18'
+        'release_date' => '2024-11-21'
     ]
 ];
 
