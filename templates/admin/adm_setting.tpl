@@ -10,11 +10,12 @@
 			<!-- Mode Maintenance -->
             <div class="form-group">
                 <label for="maintenance_mode"><?= __('adm_activ_maintenance', $translations) ?></label>
-                <input type="checkbox" id="maintenance_mode" name="maintenance_mode" <?= !empty($settings) && $settings['maintenance_mode'] ? 'checked' : '' ?>>
+                <input type="checkbox" id="maintenance_mode" name="maintenance_mode" 
+					<?= !empty($settings) && $settings['maintenance_mode'] ? 'checked' : '' ?>>
             </div>
             <div class="form-group">
                 <label for="maintenance_message"><?= __('adm_maintenance_message', $translations) ?></label>
-                <textarea id="maintenance_message" name="maintenance_message" rows="4"><?= htmlspecialchars($current_settings['maintenance_message']) ?></textarea>
+                <textarea id="maintenance_message" name="maintenance_message" rows="4"><?= htmlspecialchars($current_settings['maintenance_message'] ?? '') ?></textarea>
             </div>
 			
 			<!-- Paramètres SMTP -->

@@ -58,9 +58,12 @@ return [
 	'have_account' => "Vous avez un compte ? ",
 	'registration_success' => "Inscription réussie. Veuillez vérifier votre email pour activer votre compte.",
     'registration_email_error' => "L'email d'activation n'a pas pu être envoyé. Contactez le support.",
+	'registration_success_email' => "Inscription réussie. Veuillez vérifier votre email pour activer votre compte.",
     'error_email_mismatch' => "Les adresses email ne correspondent pas.",
     'error_password_mismatch' => "Les mots de passe ne correspondent pas.",
     'error_terms_not_accepted' => "Vous devez accepter les termes et conditions.",
+	'account_activated' => "Votre compte a été activé avec succès !",
+	'link_activation_error' => "Lien d'activation invalide ou compte déjà activé.",
 	// Messages d'erreur pour l'inscription
     'registration_error_username_taken' => "Nom d'utilisateur déjà pris.",
     'registration_error_email_taken' => "Email déjà utilisé.",
@@ -69,6 +72,7 @@ return [
     'error_password_mismatch' => "Les mots de passe ne correspondent pas.",
     'error_terms_not_accepted' => "Vous devez accepter les conditions d'utilisation.",
 	'registration_success' => "Inscription réussie. Vous pouvez maintenant vous connecter.",
+	'missing_activation_code' => "Aucun code d'activation n'a été fourni.",
 	
 	
 	
@@ -86,6 +90,28 @@ return [
 	'login_failed' => "Identifiants incorrects. Veuillez vérifier votre nom d’utilisateur ou email, et votre mot de passe.",
     'login_error_empty' => "Le champ de connexion ou de mot de passe ne peut pas être vide.",
 	'maintenance_login_blocked' => "Le site est en maintenance. Vous ne pouvez pas vous connecter pour le moment.",
+	'lost_password' => "Mot de passe perdu ?",
+	
+	// Mot de passe oublié
+    'forgot_password_title' => "Mot de passe oublié",
+    'email_label' => "Adresse email",
+    'submit_button' => "Envoyer",
+    'reset_email_sent' => "Un email de réinitialisation a été envoyé à votre adresse.",
+    'reset_email_error' => "Impossible d'envoyer l'email. Veuillez réessayer plus tard.",
+    'reset_email_disabled' => "Le système d'activation par email est désactivé.",
+    'email_not_found' => "Aucun compte associé à cette adresse email.",
+    'invalid_email' => "Adresse email invalide.",
+	'email_not_found' => "Adresse email introuvable.",
+	'reset_button' => "Réinitialiser",
+    
+    // Réinitialisation du mot de passe
+    'reset_password_title' => "Réinitialisation du mot de passe",
+    'new_password_label' => "Nouveau mot de passe",
+    'confirm_password_label' => "Confirmer le mot de passe",
+    'password_mismatch' => "Les mots de passe ne correspondent pas.",
+    'invalid_token' => "Token de réinitialisation invalide.",
+    'no_token' => "Aucun token fourni.",
+    'password_reset_success' => "Votre mot de passe a été réinitialisé avec succès.",
 	
 	// Déconnexion (Logout)
     'logout' => "Déconnexion",
@@ -117,6 +143,10 @@ return [
 	'adm_type_smtp' => "Type de connexion sécurisée :",
 	'adm_smtp_TLS' => "TLS",
 	'adm_smtp_SSL' => "SSL",
+	'adm_subject_email_activation' => "Sujet de l'email d'activation :",
+	'adm_body_email_activation' => "Contenu de l'email d'activation :",
+	'adm_subject_email_recovery' => "Sujet de l'email de réinitialisation :",
+	'adm_body_email_recovery' => "Contenu de l'email de réinitialisation :",
 	
 	
 ];

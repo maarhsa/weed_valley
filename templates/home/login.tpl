@@ -21,6 +21,9 @@
 				</div>
 			<?php endif; ?>
 		</form>
+		<div>
+			<a href="forgot_password.php"><?= __('lost_password', $translations) ?></a>
+		</div>
 	</div>
 </main>
     <footer>

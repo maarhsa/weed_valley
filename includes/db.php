@@ -6,10 +6,10 @@
  * @throws PDOException En cas d'erreur de connexion
  */
 function getDatabaseConnection() {
-    $host = 'localhost'; // Remplacez par votre hôte
-    $dbname = 'weed_valley'; // Remplacez par le nom de votre base de données
-    $username = 'root'; // Remplacez par votre utilisateur
-    $password = ''; // Remplacez par votre mot de passe
+    $host = 'localhost'; // Hôte
+    $dbname = 'weed_valley'; // Nom de la base
+    $username = 'root'; // Nom d'utilisateur
+    $password = ''; // Mot de passe
 
     try {
         $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
@@ -19,7 +19,9 @@ function getDatabaseConnection() {
         ]);
         return $pdo;
     } catch (PDOException $e) {
-        die("Erreur de connexion à la base de données : " . $e->getMessage());
+        // Log l'erreur pour une meilleure visibilité
+        error_log("Erreur de connexion à la base de données : " . $e->getMessage());
+        die("Impossible de se connecter à la base de données."); // Message utilisateur
     }
 }
 ?>

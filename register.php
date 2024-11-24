@@ -1,12 +1,15 @@
 <?php
 // Démarrer la session et charger les dépendances
-require_once 'includes/language.php'; // Charge les traductions et détecte la langue
-require_once 'includes/functions.php'; // Utilitaire global
-require_once 'includes/db.php'; // Connexion à la base de données
-require_once 'plugins/PHPMailer/PHPMailer.php'; // Inclure PHPMailer
+require_once 'includes/language.php'; 
+require_once 'includes/functions.php'; 
+require_once 'includes/db.php'; 
+require_once 'plugins/PHPMailer/PHPMailer.php'; 
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+require_once 'plugins/PHPMailer/SMTP.php';
+require_once 'plugins/PHPMailer/Exception.php';
 
 // Passer les traductions à la vue
 $lang = $_SESSION['lang'];
@@ -33,7 +36,7 @@ if ($message) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Vérification du token CSRF
     if (!validateCsrfToken($_POST['csrf_token'])) {
-        die($translations['csrf_error'] ?? 'Erreur CSRF inconnue'); // Utilise une valeur par défaut en cas de problème avec les traductions
+        die($translations['csrf_error'] ?? 'Erreur CSRF inconnue');
     }
 
     // Récupération et validation des données
@@ -44,25 +47,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirm_password = trim($_POST['confirm_password']);
     $terms_accepted = isset($_POST['terms']);
 
-    // Tableau pour les messages d'erreur
     $errors = [];
 
-    // Validation de la correspondance des emails
+    // Validation des données
     if ($email !== $confirm_email) {
         $errors[] = $translations['error_email_mismatch'];
     }
-
-    // Validation de la correspondance des mots de passe
     if ($password !== $confirm_password) {
         $errors[] = $translations['error_password_mismatch'];
     }
-
-    // Vérification de l'acceptation des conditions
     if (!$terms_accepted) {
         $errors[] = $translations['error_terms_not_accepted'];
     }
 
-    // Si des erreurs sont présentes, on les affiche
     if (!empty($errors)) {
         foreach ($errors as $error) {
             echo "<p style='color:red;'>$error</p>";
@@ -75,54 +72,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $activation_code = bin2hex(random_bytes(16));
 
         // Vérifier si l'activation par email est activée
-        $stmt = $pdo->query("SELECT email_activation_enabled FROM settings");
+        $stmt = $pdo->query("SELECT email_activation_enabled, smtp_host, smtp_port, smtp_username, smtp_password, smtp_secure FROM settings");
         $settings = $stmt->fetch(PDO::FETCH_ASSOC);
         $email_activation_enabled = $settings['email_activation_enabled'];
 
-        // L'utilisateur sera actif uniquement si l'activation par email est désactivée
         $is_active = $email_activation_enabled ? 0 : 1;
 
-        // Insertion sécurisée des données dans la base
         try {
+            // Insertion dans la base de données
             $stmt = $pdo->prepare("INSERT INTO users (username, email, password, activation_code, active) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$username, $email, $hashedPassword, $activation_code, $is_active]);
 
-            // Si l'activation par email est activée, envoyer un email
             if ($email_activation_enabled) {
                 try {
-                    // Récupérer les paramètres SMTP depuis la base de données
-					$stmt = $pdo->query("SELECT smtp_host, smtp_port, smtp_username, smtp_password, smtp_secure FROM settings");
-					$smtp_settings = $stmt->fetch(PDO::FETCH_ASSOC);
+                    // Construire l'URL d'activation dynamique
+                    $base_url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+                    $activation_link = $base_url . '/activate.php?code=' . urlencode($activation_code);
 
-					$mail = new PHPMailer(true);
-					$mail->isSMTP();
-					$mail->Host = $smtp_settings['smtp_host'];
-					$mail->SMTPAuth = true;
-					$mail->Username = $smtp_settings['smtp_username'];
-					$mail->Password = $smtp_settings['smtp_password'];
-					$mail->SMTPSecure = $smtp_settings['smtp_secure'];
-					$mail->Port = $smtp_settings['smtp_port'];
+                    // Configurer PHPMailer
+                    $mail = new PHPMailer(true);
+                    $mail->isSMTP();
+                    $mail->Host = $settings['smtp_host'];
+                    $mail->SMTPAuth = true;
+                    $mail->Username = $settings['smtp_username'];
+                    $mail->Password = $settings['smtp_password'];
+                    $mail->SMTPSecure = $settings['smtp_secure'];
+                    $mail->Port = $settings['smtp_port'];
 
-					$mail->setFrom($smtp_settings['smtp_username'], 'Weed Valley');
-					$mail->addAddress($email, $username);
+                    $mail->setFrom($settings['smtp_username'], 'Weed Valley');
+                    $mail->addAddress($email, $username);
 
-					// Contenu de l'email
-					$mail->isHTML(true);
-					$mail->Subject = 'Activation de votre compte Weed Valley';
-					$mail->Body = "Bonjour $username,<br><br>Cliquez sur le lien suivant pour activer votre compte :<br>
-						<a href='https://yourdomain.com/activate.php?code=$activation_code'>Activer mon compte</a><br><br>Merci de nous rejoindre !";
+                    // Préparer le contenu de l'email
+                    $subject = $translations['activation_email_subject'] ?? 'Activation de votre compte Weed Valley';
+                    $body = str_replace(
+                        ['{username}', '{activation_link}'],
+                        [$username, $activation_link],
+                        $translations['activation_email_body'] ?? 'Bonjour {username},<br><br>Cliquez sur le lien suivant pour activer votre compte :<br><a href="{activation_link}">Activer mon compte</a><br><br>Merci de nous rejoindre !'
+                    );
 
-					$mail->send();
-					echo $translations['registration_success_email'];
-				} catch (Exception $e) {
-					echo $translations['registration_email_error'];
-				}
-			}
+                    $mail->isHTML(true);
+                    $mail->Subject = $subject;
+                    $mail->Body = $body;
+
+                    $mail->send();
+                    echo $translations['registration_success_email'];
+                } catch (Exception $e) {
+                    error_log("Erreur PHPMailer : " . $e->getMessage());
+                    echo $translations['registration_email_error'];
+                }
             } else {
                 echo $translations['registration_success'];
             }
         } catch (PDOException $e) {
-            if ($e->getCode() === '23000') { // Violation de contrainte d'unicité
+            error_log("Erreur SQL : " . $e->getMessage());
+            if ($e->getCode() === '23000') {
                 echo $translations['registration_error_username_taken'];
             } else {
                 echo $translations['registration_error'];
@@ -144,6 +147,5 @@ ob_start();
 include $footerTemplatePath;
 $footerContent = ob_get_clean();
 
-// Afficher la page complète
 echo $menuContent . $registerContent . $footerContent;
 ?>
