@@ -19,7 +19,7 @@ $errors = [];
 $success = '';
 
 if (isset($_GET['token'])) {
-    $resetToken = $_GET['token'];
+    $resetToken = htmlspecialchars($_GET['token'], ENT_QUOTES, 'UTF-8');
 
     // Vérifier si le token est valide
     $stmt = $pdo->prepare("SELECT id FROM users WHERE reset_token = ?");
@@ -36,13 +36,22 @@ if (isset($_GET['token'])) {
 
         if ($password !== $confirmPassword) {
             $errors[] = $translations['password_mismatch'];
+		} elseif (strlen($password) < 8) {
+            $errors[] = $translations['password_too_short'];
         } else {
             // Mettre à jour le mot de passe et supprimer le token
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $pdo->prepare("UPDATE users SET password = ?, reset_token = NULL WHERE id = ?");
             $stmt->execute([$hashedPassword, $user['id']]);
 
+			// Message de succès
             $success = $translations['password_reset_success'];
+			
+			// Ajouter une redirection après 3 secondes
+            echo "<p>{$success}</p>";
+            echo "<p>" . ($translations['redirect_message']) . "</p>";
+            header("Refresh: 3; url=index.php");
+            exit;
         }
     }
 } else {

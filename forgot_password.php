@@ -62,12 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($settings['email_activation_enabled']) {
                 try {
                     // Préparer le sujet et le corps de l'email
-                    $subject = $translations['reset_email_subject'] ?? 'Réinitialisation de votre mot de passe';
+                    $subject = $translations['reset_email_subject'] ?? 'Resetting your password';
                     $resetLink = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/reset_password.php?token=' . urlencode($resetToken);
                     $body = str_replace(
                         ['{reset_link}'],
                         [$resetLink],
-                        $translations['reset_email_body'] ?? 'Bonjour, <br><br>Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href="{reset_link}">Réinitialiser mon mot de passe</a><br><br>Merci.'
+                        $translations['reset_email_body'] ?? 'Hello, <br><br>Click the following link to reset your password: <a href="{reset_link}">Reset my password</a><br><br>Thank you.'
                     );
 
                     // Configurer PHPMailer

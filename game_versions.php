@@ -14,12 +14,23 @@ $footerTemplatePath = __DIR__ . '/templates/footer.tpl';
 // Données des versions du jeu
 $versions = [
     [
-        'version_number' => '0.2',
+        'version_number' => '0.3',
         'modifications' => [
+			'00040: ',
+			'00039: ',
+			'00038: ',
+			'00037: ',
+			'00036: ',
 			'00035: ',
 			'00034: ',
-			'00033: ',
-			'00032: ',
+            '00033: ',
+            '00032: '
+        ],
+        'release_date' => 'Unknown'
+    ],
+	[
+        'version_number' => '0.2',
+        'modifications' => [
 			'00031: Added translations into English, Spanish, Dutch, German, Italian, Portuguese.',
 			'00030: Adding a redirect after password reset.',
 			'00029: Adding a redirect after registration.',
@@ -29,7 +40,7 @@ $versions = [
             '00025: Fix recovery system, message in the database and editable from the administration panel.',
             '00024: Creating an account recovery system.'
         ],
-        'release_date' => 'Unknown'
+        'release_date' => '2024-11-24'
     ],
     [
         'version_number' => '0.1',

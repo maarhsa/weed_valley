@@ -103,11 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $mail->addAddress($email, $username);
 
                     // Préparer le contenu de l'email
-                    $subject = $translations['activation_email_subject'] ?? 'Activation de votre compte Weed Valley';
+                    $subject = $translations['activation_email_subject'] ?? 'Activating your Weed Valley account';
                     $body = str_replace(
                         ['{username}', '{activation_link}'],
                         [$username, $activation_link],
-                        $translations['activation_email_body'] ?? 'Bonjour {username},<br><br>Cliquez sur le lien suivant pour activer votre compte :<br><a href="{activation_link}">Activer mon compte</a><br><br>Merci de nous rejoindre !'
+                        $translations['activation_email_body'] ?? 'Hello {username},<br><br>Click on the following link to activate your account:<br><a href="{activation_link}">Activate my account</a><br><br>Thank you for us join !'
                     );
 
                     $mail->isHTML(true);
@@ -122,6 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             } else {
                 echo $translations['registration_success'];
+				echo "<p>" . ($translations['redirect_message']) . "</p>";
+                header("Refresh: 3; url=index.php");
+                exit;
             }
         } catch (PDOException $e) {
             error_log("Erreur SQL : " . $e->getMessage());

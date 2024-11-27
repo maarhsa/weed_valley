@@ -112,6 +112,8 @@ return [
     'invalid_token' => "Token de réinitialisation invalide.",
     'no_token' => "Aucun token fourni.",
     'password_reset_success' => "Votre mot de passe a été réinitialisé avec succès.",
+	'redirect_message' => "Vous serez redirigé vers la page d'accueil dans 3 secondes...",
+	'password_too_short' => "Le mot de passe doit contenir au moins 8 caractères.",
 	
 	// Déconnexion (Logout)
     'logout' => "Déconnexion",
