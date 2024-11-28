@@ -150,6 +150,13 @@ return [
 	'adm_subject_email_recovery' => "Sujet de l'email de réinitialisation :",
 	'adm_body_email_recovery' => "Contenu de l'email de réinitialisation :",
 	
+	// Admin Dashboard
+	'adm_dashboard_title' => "Statistiques",
+	'adm_display_graph' => "Afficher les graphiques par :",
+	'adm_dashboard_day' =>"Jour",
+	'adm_dashboard_week' =>"Semaine",
+	'adm_dashboard_month' =>"Mois",
+	'adm_dashboard_year' =>"Année",
 	
 ];
 ?>

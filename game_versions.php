@@ -14,23 +14,37 @@ $footerTemplatePath = __DIR__ . '/templates/footer.tpl';
 // Données des versions du jeu
 $versions = [
     [
-        'version_number' => '0.3',
+        'version_number' => 'Unknown',
         'modifications' => [
-			'00040: ',
-			'00039: ',
-			'00038: ',
-			'00037: ',
-			'00036: ',
-			'00035: ',
-			'00034: ',
-            '00033: ',
-            '00032: '
+			"Liste de tâches :",
+			"",
+			"00050: Création d'un système de vacance, stoppant toute activité sur le compte pendant minimum 7 jours et maximum 30 jours",
+			"",
+			"00049: Ajout d'un système Recaptcha à register, reset password",
+			"00048: Création de la page setting pour les utilisateurs, afin d'encoder les codes giveaway",
+			"00047: Création d'une page Giveaway afin de créer des codes pour les utilisateurs pour des monnaies",
+			"00046: Creation d'une page pour géré les ip par utilisateur",
+			"00045: Ajout d'un système de récupération des ip des utilisateurs et enregistrement dans la bdd",
+			"00044: Ajout du système de paiement stripe, ",
+			"00043: Ajout d'une option permettant de payer via les crypto dans le shop avec choix (crypto, paypal, stripe)",
+			"00042: Création d'un système REFERAL avec plusieurs bonus au nombres d'utilisateur affilié (5,10,15,20,25)",
+			"00041: Ajout d'une option à la page shop permettant d'écrire dans un fichier l'intégralité des achats effectué (Logfiles)",
+			"00040: Modification de la page setting pour avoir des onglets pour chacun des paramètres",
+			"00039: Ajout d'une option sur la page shop permettant une promotion activable depuis setting",
+			"00038: Ajout à la page setting les paramètres du shop et permettre d'editer les prix",
+			"00037: Création d'une page shop (paypal) sécuriser pour acheter des monnaie normal et premium",
+			"00036: Ajout de la possibilité d'éditer la quantité de monnaie d'un utilisateur sur la page de gestions des utilisateurs (POPUP)",
+			"00035B: Modification du système de monnaie à la création de compte depuis le panneau d'administration (setting)",
+			"00035A: Ajout d'une quantité de monnaie à la création du compte",
+			"00034: Ajout de la possibilité de ban avec raison et durée (heure, jours, année) sur la page de gestions des utilisateurs (POPUP)",
+            "00033: Création d'une page pour la gestions des utilisateurs"
         ],
         'release_date' => 'Unknown'
     ],
 	[
         'version_number' => '0.2',
         'modifications' => [
+			'00032: Displaying several statistics in the administrator panel with AJAX',
 			'00031: Added translations into English, Spanish, Dutch, German, Italian, Portuguese.',
 			'00030: Adding a redirect after password reset.',
 			'00029: Adding a redirect after registration.',

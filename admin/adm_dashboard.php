@@ -20,6 +20,78 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] != 1) {
     exit;
 }
 
+// Connexion à la base de données
+$pdo = getDatabaseConnection();
+
+// Obtenir la période à partir des paramètres GET (par défaut : jour)
+$period = $_GET['period'] ?? 'day';
+
+// Définir les intervalles en fonction de la période
+switch ($period) {
+    case 'week':
+        $dateFormat = "YEARWEEK(created_at, 1)";
+        $interval = "1 MONTH";
+        break;
+    case 'month':
+        $dateFormat = "DATE_FORMAT(created_at, '%Y-%m')";
+        $interval = "1 YEAR";
+        break;
+    case 'year':
+        $dateFormat = "YEAR(created_at)";
+        $interval = "10 YEAR";
+        break;
+    case 'day':
+    default:
+        $dateFormat = "DATE(created_at)";
+        $interval = "7 DAY";
+        break;
+}
+
+// Récupérer les données pour les graphiques
+$stats = [];
+
+// Nombres d'inscriptions
+$stats['registrations'] = $pdo->query("
+    SELECT $dateFormat AS period, COUNT(*) AS count 
+    FROM users 
+    WHERE created_at >= CURDATE() - INTERVAL $interval
+    GROUP BY period
+    ORDER BY period
+")->fetchAll(PDO::FETCH_ASSOC);
+
+// Nombres de joueurs actifs
+$stats['active_users'] = $pdo->query("
+    SELECT $dateFormat AS period, COUNT(*) AS count
+    FROM users 
+    WHERE last_login >= CURDATE() - INTERVAL $interval
+    GROUP BY period
+    ORDER BY period
+")->fetchAll(PDO::FETCH_ASSOC);
+
+// Nombres de comptes bannis
+$stats['banned_users'] = $pdo->query("
+    SELECT $dateFormat AS period, COUNT(*) AS count
+    FROM users
+    WHERE banned = 1 AND created_at >= CURDATE() - INTERVAL $interval
+    GROUP BY period
+    ORDER BY period
+")->fetchAll(PDO::FETCH_ASSOC);
+
+// Nombres total d'utilisateurs
+$stats['total_users'] = $pdo->query("
+    SELECT $dateFormat AS period, COUNT(*) AS count
+    FROM users
+    WHERE created_at >= CURDATE() - INTERVAL $interval
+    GROUP BY period
+    ORDER BY period
+")->fetchAll(PDO::FETCH_ASSOC);
+
+// Renvoyer les données JSON si demandé
+if (isset($_GET['json']) && $_GET['json'] === '1') {
+    header('Content-Type: application/json');
+    echo json_encode($stats);
+    exit;
+}
 
 // Charger le menu
 ob_start();
